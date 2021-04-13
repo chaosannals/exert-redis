@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  # redis 服务器
+  redis-server:
+    build: 
+      context: .
+      dockerfile: dockerfile
+    container_name: exert-redis-server
+    restart: always
+    ports: 
+      - "6379:6379"
+    volumes: 
+      - ./docker/data:/data
+      - ./docker/conf:/etc/redis:ro
+    networks:
+      - exert-redis-net
+
+networks:
+  exert-redis-net:
+    name: exert-redis-net
+    driver: bridge
